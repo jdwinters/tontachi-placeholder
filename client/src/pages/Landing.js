@@ -70,7 +70,7 @@ class Landing extends React.Component{
             arkane: {
                 package: Arkane, // required
                 options: {
-                clientId: "ARKANE_CLIENT_ID" // required
+                clientId: process.env.REACTAPP_ARKANE_CLIENT_ID // required
                 }
             }
         };

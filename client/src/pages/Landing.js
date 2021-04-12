@@ -81,6 +81,7 @@ class Landing extends React.Component{
     }
     async onConnect (){
         const provider = await this.web3Modal.connect();
+        await this.web3Modal.toggleModal();
         await this.subscribeProvider(provider);
         const web3 = initWeb3(provider);
         const accounts = await web3.eth.getAccounts();

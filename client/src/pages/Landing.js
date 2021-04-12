@@ -9,7 +9,7 @@ import { convertUtf8ToHex } from '@walletconnect/utils';
 
 //Provider imports
 import Arkane from "@arkane-network/web3-arkane-provider";
-
+import Authereum from "authereum";
 //Helpers
 
 
@@ -67,11 +67,14 @@ class Landing extends React.Component{
     }
     getProviderOptions(){
         const providerOptions = {
-            arkane: {
-                package: Arkane, // required
-                options: {
-                clientId: process.env.REACTAPP_ARKANE_CLIENT_ID // required
-                }
+            // arkane: {
+            //     package: Arkane, // required
+            //     options: {
+            //     clientId: process.env.REACTAPP_ARKANE_CLIENT_ID // required
+            //     }
+            // },
+            authereum: {
+                package: Authereum // required
             }
         };
         return providerOptions;

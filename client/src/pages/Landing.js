@@ -28,7 +28,7 @@ const INITIAL_STATE = {
 }
 function initWeb3(provider){
     const web3 = new Web3(provider);
-    this.web3.eth.extend({
+    web3.eth.extend({
         methods: [
             {
                 name: "chainId",

@@ -51,8 +51,8 @@ class Landing extends React.Component{
         this.toggleModal = this.toggleModal.bind(this);
         //variables
         this.web3Modal = new Web3Modal({
-            // network: "mainnet", // optional
-            cacheProvider: true, // optional
+            network: "mainnet", // optional
+            cacheProvider: false, // optional
             providerOptions: this.getProviderOptions() // required
         });
     }
@@ -71,23 +71,38 @@ class Landing extends React.Component{
                 package: Arkane, // required
                 options: {
                 clientId: process.env.REACTAPP_ARKANE_CLIENT_ID // required
+                // clientId: 'Arketype'
                 }
             },
-            authereum: {
-                package: Authereum // required
-            }
+            // authereum: {
+            //     package: Authereum, // required
+            //     apiKey: 'y7edbh5uw4eTpLg8JAk7tHdzfMOT6wlB'
+            // }
         };
         return providerOptions;
     }
     async onConnect (){
+        this.web3Modal.clearCachedProvider()
         const provider = await this.web3Modal.connect();
-        await this.web3Modal.toggleModal();
+        console.log("provider: ");
+        console.log(provider);
+        
         await this.subscribeProvider(provider);
         const web3 = initWeb3(provider);
+        console.log("web3: ");
+        console.log(web3);
         const accounts = await web3.eth.getAccounts();
+        console.log("accounts: ");
+        console.log(accounts);
         const address = accounts[0];
+        console.log("address: ");
+        console.log(address);
         const networkId = await web3.eth.net.getId();
+        console.log("networkId: ");
+        console.log(networkId);
         const chainId = await web3.eth.chainId();
+        console.log("chainId: ");
+        console.log(chainId);
 
         await this.setState({
             web3: web3,

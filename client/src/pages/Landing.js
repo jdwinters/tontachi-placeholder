@@ -67,12 +67,12 @@ class Landing extends React.Component{
     }
     getProviderOptions(){
         const providerOptions = {
-            // arkane: {
-            //     package: Arkane, // required
-            //     options: {
-            //     clientId: process.env.REACTAPP_ARKANE_CLIENT_ID // required
-            //     }
-            // },
+            arkane: {
+                package: Arkane, // required
+                options: {
+                clientId: process.env.REACTAPP_ARKANE_CLIENT_ID // required
+                }
+            },
             authereum: {
                 package: Authereum // required
             }

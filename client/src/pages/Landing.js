@@ -8,7 +8,7 @@ import mediumButton from '../images/mediumButton.png';
 import tontachiLogo from '../images/tontachiLogo.png';
 import downButton from '../images/downButton.png';
 import detectProviderButton from '../images/detectProviderButton.png';
-import arkaneButton from '../images/arkaneButton.png';
+import arkaneButton from '../images/ArkaneButton.png';
 //components
 
 class Landing extends React.Component{

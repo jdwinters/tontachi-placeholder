@@ -1,13 +1,52 @@
 
 #landingImg {
-    width:100%;
-    background: url("../images/tontachiLandingImg.png")no-repeat center center fixed;
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
+    /* width:100%; */
+    /* height: 00px; */
+    background-image: url("../images/tontachiLandingImg.png");
+    background-attachment: scroll;
     background-size: cover;
+    position: static;
+    
 }
 img.socialMediaLink {
     max-width: 100px;
     max-height: 100px;
+}
+img.tontachiLogo {
+    max-width: 400px;
+    max-height: 400px;
+}
+img.connectButton{
+    max-width: 350px;
+    max-height: 350px;
+}
+#connectSection .tontachiLogo {
+    /* margin-left: 40px;
+    margin-top: 30px; */
+    max-width: 250px;
+    max-height: 250px;
+}
+.blueSection{
+    background-color: #AEECF8;
+}
+
+#socialLinks{
+    position:absolute;
+    left: 0;
+    bottom: 0;
+}
+#scrollLink{
+    position:absolute;
+    right: 0;
+    bottom: 0;
+}
+#scrollButton{
+    position:absolute;
+    right: 0;
+    bottom: 0;
+}
+#tontachiLogo{
+    position: absolute;
+    left: 200px;
+    top: 50px;
 }

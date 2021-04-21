@@ -11,7 +11,6 @@ import detectProviderButton from '../images/detectProviderButton.png';
 import arkaneButton from '../images/arkaneButton.png';
 //components
 
-
 class Landing extends React.Component{
     constructor(props){
         super(props);

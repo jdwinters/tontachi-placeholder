@@ -9,7 +9,7 @@ import { convertUtf8ToHex } from '@walletconnect/utils';
 
 //Provider imports
 import Arkane from "@arkane-network/web3-arkane-provider";
-import Authereum from "authereum";
+// import Authereum from "authereum";
 //Helpers
 
 

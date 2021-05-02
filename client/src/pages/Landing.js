@@ -11,10 +11,85 @@ import detectProviderButton from '../images/detectProviderButton.png';
 import arkaneButton from '../images/ArkaneButton.png';
 //components
 
+//web3 imports
+import Web3 from "web3";
+import { ArkaneConnect } from '@arkane-network/arkane-connect'
+
+const INITIAL_STATE = {
+    arkaneConnect: null,
+    fetching: false,
+    address: "",
+    web3: null,
+    provider: null,
+    connected: false,
+    chainId: 1,
+    networkId: 1,
+    assets: [],
+    pendingRequest: false,
+    result: null
+}
 class Landing extends React.Component{
     constructor(props){
         super(props);
+        this.state = {
+            ...INITIAL_STATE
+        }
+        this.connectArkane = this.connectArkane.bind(this);
+        this.connectWeb3 = this.connectWeb3.bind(this);
+        this.subscribeProvider = this.subscribeProvider.bind(this);
     }
+    async connectArkane(){
+        const arkaneConnect = new ArkaneConnect('OinkAR',{
+             environment: 'staging',
+             windowMode: 'POPUP'
+
+        });
+        await this.setState({
+            arkaneConnect: arkaneConnect
+        });
+        arkaneConnect.flows.getAccount();
+    }
+    connectWeb3(){
+        if(window.ethereum){
+            const web3 = new Web3(window.ethereum);
+            try{
+                window.ethereum.enable()
+                .then(async provider=>{
+                    await this.subscribeProvider(provider);
+                    const accounts = await web3.eth.getAccounts();
+                    const address = accounts[0];
+                    const networkId = await web3.eth.net.getId();
+                    const chainId = await web3.eth.getChainId();
+                })
+            }catch(e){
+                console.log(e);
+            }
+        }
+    }
+    async subscribeProvider(provider){
+        if(!provider.on){
+            return;
+        }
+        provider.on("close", ()=>this.resetApp());
+       //  provider.on("accountsChanged", async (accounts) => {
+       //     const { web3 } = this.state;
+       //     const networkId = await web3.eth.net.getId();
+       //     await this.setState({chainId, networkId});
+       //     await this.getAccountAssets();
+       //  });
+       // provider.on("chainChanged", async (chainId) => {
+       //     const { web3 } = this.state;
+       //     const networkId = await web3.eth.net.getId();
+       //     await this.setState({chainId, networkId});
+       //     await this.getAccountAssets();
+       // });
+       // provider.on("networkChanged", async (networkId) => {
+       //     const { web3 } = this.state;
+       //     const chainId = await web3.eth.chainId();
+       //     await this.setState({ chainId, networkId});
+       //     await this.getAccountAssets();
+       // });
+   }
     render(){
         var scrollToElement = require('scroll-to-element');
         return(
@@ -43,11 +118,14 @@ class Landing extends React.Component{
                                 </div>
                             </div>
                             <div className="col-6" id="scrollLink">
-                                <img className="socialMediaLink m-4" src={downButton}  id="scrollButton" alt="" onClick={()=>scrollToElement('#connectSection', {
-                                                                                                                                                offset: 0,
-                                                                                                                                                ease: 'linear',
-                                                                                                                                                duration: 500
-                                                                                                                                            })}
+                                <img className="socialMediaLink m-4" src={downButton}  
+                                id="scrollButton" alt="" 
+                                onClick={()=>scrollToElement(
+                                    '#connectSection', {
+                                    offset: 0,
+                                    ease: 'linear',
+                                    duration: 500
+                                })}
                                 />
                             </div>
                         </div>
@@ -68,16 +146,16 @@ class Landing extends React.Component{
                         <div className="row">
                             <div className="col d-flex flex-column justify-content-end">
                                 <div className="d-flex justify-content-end">
-                                    <a>
-                                        <img className="connectButton p-2 ml-3" src={arkaneButton}  id="" alt="" />
-                                    </a>
+                                    <img 
+                                    onClick={()=>this.connectArkane()}
+                                    className="connectButton p-2 ml-3" src={arkaneButton}  id="" alt="" />
                                 </div>
                             </div>
                             <div className="col">
                                 <div className="d-flex justify-content-start">
-                                    <a>
-                                        <img className="connectButton p-2 ml-3" src={detectProviderButton}  id="" alt="" />
-                                    </a>
+                                    <img 
+                                    onClick={()=>this.connectWeb3()}
+                                    className="connectButton p-2 ml-3" src={detectProviderButton}  id="" alt="" />
                                 </div>
                             </div>
                         </div> 
@@ -85,7 +163,6 @@ class Landing extends React.Component{
                                                                                            
                 </div>
             </div>
-            
         )
     }
 }
